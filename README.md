@@ -1,44 +1,48 @@
-# SOC Phishing Investigation (TryHackMe - Phishing Unfolding)
+# SOC Simulation Lab – Phishing to Data Exfiltration Attack
 
 ## Overview
-This project documents a phishing investigation conducted in a simulated SOC environment. The objective was to analyze alerts and determine whether they represented true or false positives based on user interaction and impact.
 
-## Tools Used
-- TryHackMe SOC Simulator
+This project documents a full Security Operations Center (SOC) simulation where a phishing attack led to system compromise and data exfiltration. The lab demonstrates real-world attack techniques and how they are detected, analyzed, and responded to using SIEM and Sysmon logs.
 
-## Scenario
-Multiple alerts were generated involving phishing emails containing malicious URLs. The task was to investigate each alert, identify indicators of compromise, and classify them accordingly.
+## Objectives
 
-## Key Findings
-- Identified phishing attempts using typosquatting domains
-- Detected user interaction with malicious links
-- Observed execution of a malicious file leading to system compromise
-- Correlated multiple alerts into a single incident involving one user
+* Analyze phishing-based initial access
+* Investigate endpoint activity using Sysmon logs
+* Correlate events across an attack chain
+* Differentiate between true positives and false positives
+* Identify Indicators of Compromise (IOCs)
+* Recommend remediation actions
 
-## Outcome
-- Alerts without user interaction were classified as False Positives
-- Alerts with confirmed interaction were classified as True Positives
-- Repeated alerts were identified as part of the same incident
+## Attack Summary
 
-## Skills Demonstrated
-- Phishing analysis
-- Log investigation using Splunk
-- Alert triage and classification
-- Incident correlation
+The attack began with a phishing email containing a malicious ZIP attachment. Once opened, the attacker leveraged PowerShell to execute malicious scripts, access internal network shares, stage sensitive data, and exfiltrate it using DNS queries.
 
-## Lessons Learned
-- SOC decisions are based on impact, not just detection
-- Not all alerts indicate an active incident
-- Correlating alerts is critical in identifying real threats
+## Key Attack Stages
 
-## Note on Alert Classification
+1. Initial Access – Phishing email with ZIP attachment
+2. Execution – Malicious .lnk file launches PowerShell
+3. Persistence & Control – PowerShell used for command execution
+4. Lateral Access – Network share mapped using net.exe
+5. Data Staging – Files copied using Robocopy
+6. Cleanup – Network drive removed
+7. Exfiltration – DNS tunneling via nslookup
 
-All True Positive alerts involving confirmed user interaction were correctly identified during the investigation.
+## Tools & Techniques Observed
 
-A small number of alerts were initially misclassified due to the distinction between phishing attempts and successful phishing activity. This highlighted an important SOC concept: alerts are classified based on confirmed impact rather than intent.
+* PowerShell abuse
+* Living-off-the-Land binaries (LOLBins)
+* DNS-based data exfiltration
+* Social engineering (phishing)
+* File masquerading (.lnk disguised as .pdf)
 
-This experience reinforced the importance of verifying user interaction (e.g., link clicks, file execution) before classifying an alert as a True Positive.
+## Files in this Repository
 
-## SOC Simulation
+* report.md → Detailed incident analysis
+* iocs.md → Indicators of Compromise
 
-https://tryhackme.com/soc-sim/public-summary/d5e8a2d68758883764ce294689a03fb5d0136e9d70f9671e45aed41661c15acd96456150b0a0c5bfee36d077017a8ffc
+## Key Takeaways
+
+* Phishing remains a critical entry point for attackers
+* Legitimate system tools can be abused for malicious activity
+* DNS traffic can be used for covert exfiltration
+* Proper alert triage is essential to reduce false positives
