@@ -46,3 +46,22 @@ The attack began with a phishing email containing a malicious ZIP attachment. On
 * Legitimate system tools can be abused for malicious activity
 * DNS traffic can be used for covert exfiltration
 * Proper alert triage is essential to reduce false positives
+
+# Images
+
+## Company Information
+
+![CompanyInformation](screenshots/CompanyInfo.png)
+
+## Malicious Email
+
+![Email](screenshots/Email.png)
+
+## Malware
+
+![Malware](screenshots/Malware.png)
+
+## Remote Command Execution and Data Exfiltration
+
+![RemoteCommand](screenshots/RemoteCommand.png)
+![Exfiltration](screenshots/NetworkDriveMapping.png)
